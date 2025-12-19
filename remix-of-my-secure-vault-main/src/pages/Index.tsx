@@ -1,11 +1,13 @@
-import { WelcomeScreen } from '@/components/WelcomeScreen';
-import { WorkspaceView } from '@/components/WorkspaceView';
-import { useWorkspace } from '@/lib/workspace-context';
+import { WelcomeScreen } from "../components/WelcomeScreen";
+import { WorkspaceView } from "../components/WorkspaceView";
+import { useWorkspace } from "../lib/workspace-context";
 
-const Index = () => {
+export default function Index() {
   const { isWorkspaceUnlocked } = useWorkspace();
-  
-  return isWorkspaceUnlocked ? <WorkspaceView /> : <WelcomeScreen />;
-};
 
-export default Index;
+  if (isWorkspaceUnlocked) {
+    return <WorkspaceView />;
+  }
+
+  return <WelcomeScreen />;
+}
