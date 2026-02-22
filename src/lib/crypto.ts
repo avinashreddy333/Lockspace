@@ -63,7 +63,14 @@ export function bytesToString(bytes: Uint8Array): string {
  * Convert Uint8Array to Base64 string for storage
  */
 export function bytesToBase64(bytes: Uint8Array): string {
-  const binary = String.fromCharCode(...bytes);
+  let binary = '';
+  const chunkSize = 0x8000; // 32KB chunks
+
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    const chunk = bytes.subarray(i, i + chunkSize);
+    binary += String.fromCharCode.apply(null, chunk as unknown as number[]);
+  }
+
   return btoa(binary);
 }
 

@@ -221,15 +221,16 @@ export function WorkspaceView() {
           mimeType: file.type || 'application/octet-stream',
           createdAt: encryptedFile.createdAt,
         }, ...prev]);
-      } catch {
-        toast({
-          variant: 'destructive',
-          title: 'Upload failed',
-          description: `Could not encrypt "${file.name}".`,
-        });
-      }
-    }
-    
+      } catch (err) {
+  console.error("Encryption error:", err);
+
+  toast({
+    variant: 'destructive',
+    title: 'Upload failed',
+    description: `Could not encrypt "${file.name}". Check console.`,
+  });
+}
+    }    
     if (uploadedFiles.length > 0) {
       toast({
         title: 'Files uploaded',
